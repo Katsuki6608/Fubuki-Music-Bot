@@ -1,1 +1,9 @@
-
+pyrogram>=2.0.106
+tgcrypto>=1.2.5
+pytgcalls==2.3.3
+ntgcalls==2.2.5
+motor>=3.3.0
+pymongo>=4.6.0
+upstash-redis>=1.0.0
+yt-dlp>=2024.08.06
+python-dotenv>=1.0.0
