@@ -4,7 +4,7 @@ import asyncio
 import sys
 
 from pyrogram import Client
-from pyrogram.errors import ChatWriteForbidden
+from pyrogram.errors import ChatWriteForbidden, UserAlreadyParticipant
 import config
 
 from ..logging import LOGGER
@@ -16,7 +16,7 @@ assistantids = []
 class Userbot(Client):
     def __init__(self):
         self.clients = []
-        self.sessions = config.STRING_SESSIONS
+        self.sessions = [s for s in config.STRING_SESSIONS if s and s.strip()]
 
         for i, session in enumerate(self.sessions, start=1):
             client = Client(
@@ -28,21 +28,24 @@ class Userbot(Client):
                 session_string=session.strip(),
             )
             self.clients.append(client)
+            # Dynamic numbering support (userbot.one, userbot.two, etc.)
+            num_words = ["one", "two", "three", "four", "five"]
+            if i <= len(num_words):
+                setattr(self, num_words[i - 1], client)
 
     async def _start(self, client, index):
-        LOGGER(__name__).info("Starting Assistant Clients")
+        LOGGER(__name__).info(f"Starting Assistant Client #{index}")
         try:
             await client.start()
             assistants.append(index)
-            try:
-                get_me = await client.get_me()
-                client.username = get_me.username
-                client.id = get_me.id
-                client.mention = get_me.mention
-                assistantids.append(get_me.id)
-                client.name = f"{get_me.first_name} {get_me.last_name or ''}".strip()
+            get_me = await client.get_me()
+            client.username = get_me.username or ""
+            client.id = get_me.id
+            client.mention = get_me.mention
+            assistantids.append(get_me.id)
+            client.name = f"{get_me.first_name} {get_me.last_name or ''}".strip()
 
-                assistant_msg = f"""
+            assistant_msg = f"""
 ╔══════════════════════╗
   🤖 **ᴀssɪsᴛᴀɴᴛ sᴛᴀʀᴛᴇᴅ** 🤖
 ╚══════════════════════╝
@@ -58,36 +61,42 @@ class Userbot(Client):
 
 ⚡ **ʀᴇᴀᴅʏ ᴛᴏ ᴊᴏɪɴ ᴠᴏɪᴄᴇᴄʜᴀᴛs**
 💎 **ᴘʀᴇᴍɪᴜᴍ sᴛʀᴇᴀᴍɪɴɢ ᴀᴄᴛɪᴠᴇ**
-🔥 **ᴘʀᴏxʏ :** ᴄʟᴏᴜᴅғʟᴀʀᴇ ᴡᴀʀᴘ
 """
-                await client.send_message(config.LOGGER_ID, assistant_msg)
-            except ChatWriteForbidden:
+            if config.LOGGER_ID:
                 try:
-                    await client.join_chat(config.LOGGER_ID)
                     await client.send_message(config.LOGGER_ID, assistant_msg)
-                except Exception:
-                    LOGGER(__name__).error(
-                        f"Assistant Account {index} has failed to send message in Loggroup Make sure you have added assistant in Loggroup."
+                except ChatWriteForbidden:
+                    try:
+                        await client.join_chat(config.LOGGER_ID)
+                        await client.send_message(config.LOGGER_ID, assistant_msg)
+                    except UserAlreadyParticipant:
+                        pass
+                    except Exception as err:
+                        LOGGER(__name__).warning(
+                            f"Assistant Account #{index} could not post in Log Group: {err}"
+                        )
+                except Exception as err:
+                    LOGGER(__name__).warning(
+                        f"Assistant Account #{index} log message failed: {err}"
                     )
-                    sys.exit(1)
 
         except Exception as e:
             LOGGER(__name__).error(
-                f"Assistant Account {index} failed with error: {str(e)}."
+                f"Assistant Account #{index} failed with error: {str(e)}."
             )
             sys.exit(1)
 
     async def start(self):
-        tasks = []  # List to hold start tasks
-        for i, client in enumerate(self.clients, start=1):
-            task = self._start(client, i)
-            tasks.append(task)
+        if not self.clients:
+            LOGGER(__name__).error("No assistant sessions configured.")
+            return
+        tasks = [self._start(client, i) for i, client in enumerate(self.clients, start=1)]
         await asyncio.gather(*tasks)
 
     async def stop(self):
-        """Gracefully stop all clients."""
-        tasks = [client.stop() for client in self.clients]
-        await asyncio.gather(*tasks)
+        tasks = [client.stop() for client in self.clients if client.is_connected]
+        if tasks:
+            await asyncio.gather(*tasks)
 
     def __getattr__(self, name):
         if not self.clients:
