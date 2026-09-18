@@ -171,6 +171,10 @@ async def get_data_and_name(replied_message, message):
 
 
 async def extract_userid(message, text: str):
+    """
+    NOT TO BE USED OUTSIDE THIS FILE
+    """
+
     def is_int(text: str):
         try:
             int(text)
@@ -185,7 +189,7 @@ async def extract_userid(message, text: str):
 
     entities = message.entities
     app = message._client
-    if not entities or len(entities) < 2:
+    if len(entities) < 2:
         return (await app.get_users(text)).id
     entity = entities[1]
     if entity.type == MessageEntityType.MENTION:
@@ -243,11 +247,8 @@ async def extract_user(message):
 def get_file_id_from_message(
     message,
     max_file_size=3145728,
-    mime_types=None,
+    mime_types=["image/png", "image/jpeg"],
 ):
-    if mime_types is None:
-        mime_types = ["image/png", "image/jpeg"]
-
     file_id = None
     if message.document:
         if int(message.document.file_size) > max_file_size:
