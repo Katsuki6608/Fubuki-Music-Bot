@@ -12,9 +12,11 @@ from pyrogram.types import (
     BotCommandScopeAllPrivateChats,
 )
 
-import uvloop
-
-uvloop.install()
+try:
+    import uvloop
+    uvloop.install()
+except Exception:
+    pass
 
 import config
 
@@ -40,6 +42,8 @@ class FubukiBot(Client):
         self.name = self.me.first_name + " " + (self.me.last_name or "")
         self.mention = self.me.mention
 
+        owner_id = config.OWNER_ID[0] if (isinstance(config.OWNER_ID, (list, tuple)) and len(config.OWNER_ID) > 0) else getattr(config, "OWNER_ID", "Unknown")
+
         try:
             start_msg = f"""
 ╔══════════════════════╗
@@ -52,7 +56,7 @@ class FubukiBot(Client):
 │ 🔑 **ɪᴅ :** <code>{self.id}</code>
 │ 🧑 **ɴᴀᴍᴇ :** {self.name}
 │ 🔗 **ᴜsᴇʀɴᴀᴍᴇ :** @{self.username}
-│ 📡 **ʜᴜɴᴛᴇʀ :** {config.OWNER_ID[0]}
+│ 📡 **ᴏᴡɴᴇʀ :** {owner_id}
 │ 🌐 **ᴘʟᴀᴛғᴏʀᴍ :** 🐧 ʟɪɴᴜx
 │ 🐍 **ᴘʏᴛʜᴏɴ :** 3.x
 │ ⚙️ **ᴘʏᴛɢᴄᴀʟʟs :** v2.3.3
@@ -71,7 +75,7 @@ class FubukiBot(Client):
                 "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
             )
 
-        if config.SET_CMDS == str(True):
+        if str(getattr(config, "SET_CMDS", False)).lower() == "true":
             try:
                 await self.set_bot_commands(
                     commands=[
@@ -93,7 +97,7 @@ class FubukiBot(Client):
                         BotCommand("skip", "ᴍᴏᴠᴇ ᴛᴏ ɴᴇxᴛ ᴛʀᴀᴄᴋ ɪɴ ǫᴜᴇᴜᴇ"),
                         BotCommand("pause", "ᴘᴀᴜsᴇ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴘʟᴀʏɪɴɢ sᴏɴɢ"),
                         BotCommand("resume", "ʀᴇsᴜᴍᴇ ᴛʜᴇ ᴘᴀᴜsᴇᴅ sᴏɴɢ"),
-                        BotCommand("end", "ᴄʟᴇᴀʀ ᴛʜᴇ ǫᴜᴇᴜᴇ ᴀᴍᴅ ʟᴇᴀᴠᴇ ᴠᴏɪᴄᴇᴄʜᴀᴛ"),
+                        BotCommand("end", "ᴄʟᴇᴀʀ ᴛʜᴇ ǫᴜᴇᴜᴇ ᴀɴᴅ ʟᴇᴀᴠᴇ ᴠᴏɪᴄᴇᴄʜᴀᴛ"),
                         BotCommand("shuffle", "ʀᴀɴᴅᴏᴍʟʏ sʜᴜғғʟᴇs ᴛʜᴇ ǫᴜᴇᴜᴇᴅ ᴘʟᴀʏʟɪsᴛ."),
                         BotCommand(
                             "playmode",
