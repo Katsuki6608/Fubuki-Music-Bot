@@ -1,3 +1,5 @@
+# All rights reserved.
+
 from pykeyboard import InlineKeyboard
 
 from .functions import get_urls_from_text as is_url
