@@ -1,9 +1,7 @@
 import os
-import re
 import sys
 import asyncio
 import traceback
-from inspect import getfullargspec
 from io import StringIO
 from time import time
 
@@ -14,17 +12,11 @@ from Fubuki import app
 from Fubuki.misc import SUDOERS
 from Fubuki.utils.premium import close_btn, nav_btn
 
-## -------- end of required imports to run this script
-
-## ------ Below are some optional Imports you can remove it if is imported  you don't need to import it when using eval command
-
 from pyrogram.raw.functions import *
 from pyrogram.raw.types import *
 
 from Fubuki import userbot
 from Fubuki.core.call import Fubuki_Call as Katsuki, Fubuki_Call as Ayush
-
-## end
 
 
 async def aexec(code, client, message):
@@ -40,9 +32,9 @@ async def aexec(code, client, message):
 
 
 async def edit_or_reply(msg: Message, **kwargs):
-    func = msg.edit_text if msg.from_user.is_self else msg.reply
-    spec = getfullargspec(func.__wrapped__).args
-    await func(**{k: v for k, v in kwargs.items() if k in spec})
+    if msg.from_user and msg.from_user.is_self:
+        return await msg.edit_text(**kwargs)
+    return await msg.reply(**kwargs)
 
 
 @app.on_edited_message(
@@ -51,27 +43,31 @@ async def edit_or_reply(msg: Message, **kwargs):
 @app.on_message(
     filters.command(["ev", "eval"]) & SUDOERS & ~filters.forwarded & ~filters.via_bot
 )
-async def executor(client: app, message: Message):
+async def executor(client, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>Give me something to exceute</b>")
+        return await edit_or_reply(message, text="<b>Give me something to execute</b>")
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
         return await message.delete()
+
     t1 = time()
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = StringIO()
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
+
     try:
         await aexec(cmd, client, message)
     except Exception:
         exc = traceback.format_exc()
+
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
+
     evaluation = "\n"
     if exc:
         evaluation += exc
@@ -81,7 +77,10 @@ async def executor(client: app, message: Message):
         evaluation += stdout
     else:
         evaluation += "Success"
+
     final_output = f"<b>RESULTS:</b>\n<pre language='python'>{evaluation}</pre>"
+    user_id = message.from_user.id if message.from_user else 0
+
     if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
@@ -92,7 +91,7 @@ async def executor(client: app, message: Message):
                 [
                     nav_btn(
                         text="⏳",
-                        callback_data=f"runtime {t2-t1} Seconds",
+                        callback_data=f"runtime {round(t2-t1, 3)} Seconds",
                     )
                 ]
             ]
@@ -103,8 +102,12 @@ async def executor(client: app, message: Message):
             quote=False,
             reply_markup=keyboard,
         )
-        await message.delete()
-        os.remove(filename)
+        try:
+            await message.delete()
+        except Exception:
+            pass
+        if os.path.exists(filename):
+            os.remove(filename)
     else:
         t2 = time()
         keyboard = InlineKeyboardMarkup(
@@ -116,7 +119,7 @@ async def executor(client: app, message: Message):
                     ),
                     close_btn(
                         text="🗑",
-                        callback_data=f"forceclose abc|{message.from_user.id}",
+                        callback_data=f"forceclose abc|{user_id}",
                     ),
                 ]
             ]
@@ -142,11 +145,11 @@ async def forceclose_command(_, CallbackQuery):
             )
         except Exception:
             return
-    await CallbackQuery.message.delete()
     try:
+        await CallbackQuery.message.delete()
         await CallbackQuery.answer()
     except Exception:
-        return
+        pass
 
 
 @app.on_edited_message(
@@ -171,14 +174,8 @@ async def shellrunner(_, message: Message):
             )
             stdout, stderr = await process.communicate()
             return stdout.decode().strip(), stderr.decode().strip()
-        except Exception as err:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            errors = traceback.format_exception(
-                etype=exc_type,
-                value=exc_obj,
-                tb=exc_tb,
-            )
-            return None, ''.join(errors)
+        except Exception:
+            return None, traceback.format_exc()
 
     if "\n" in text:
         commands = text.split("\n")
@@ -200,7 +197,7 @@ async def shellrunner(_, message: Message):
         output = "<b>OUTPUT :</b>\n<code>None</code>"
 
     if len(output) > 4096:
-        with open("output.txt", "w+") as file:
+        with open("output.txt", "w+", encoding="utf8") as file:
             file.write(output)
         await app.send_document(
             message.chat.id,
@@ -208,7 +205,8 @@ async def shellrunner(_, message: Message):
             reply_to_message_id=message.id,
             caption="<code>Output</code>",
         )
-        os.remove("output.txt")
+        if os.path.exists("output.txt"):
+            os.remove("output.txt")
     else:
         await edit_or_reply(message, text=output)
 
