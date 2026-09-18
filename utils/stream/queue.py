@@ -1,3 +1,5 @@
+# All rights reserved.
+
 from typing import Union
 from config import autoclean, chatstats, userstats
 from config.config import time_to_seconds
