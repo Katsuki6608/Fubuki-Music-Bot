@@ -1,4 +1,3 @@
-#
 # All rights reserved.
 import importlib
 
@@ -22,10 +21,7 @@ async def init():
             "No Assistant Clients Vars Defined!.. Exiting Process."
         )
         return
-    if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
-        LOGGER("Fubuki").warning(
-            "No Spotify Vars defined. Your bot won't be able to play spotify queries."
-        )
+
     try:
         users = await get_gbanned()
         for user_id in users:
@@ -35,31 +31,37 @@ async def init():
             BANNED_USERS.add(user_id)
     except Exception:
         pass
+
     await app.start()
     LOGGER("Fubuki").info("Validating premium emoji database...")
     try:
         await validate_db(app)
     except Exception:
         LOGGER("Fubuki").warning("Could not validate premium emoji database.")
+
     for all_module in ALL_MODULES:
         imported_module = importlib.import_module(all_module)
 
         if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
             if hasattr(imported_module, "__HELP__") and imported_module.__HELP__:
                 HELPABLE[imported_module.__MODULE__.lower()] = imported_module
-    LOGGER("Fubuki.plugins").info("Successfully Imported All Modules ")
+    LOGGER("Fubuki.plugins").info("Successfully Imported All Modules")
+
     await userbot.start()
     await Ayush.start()
-    LOGGER("Fubuki").info("Assistant Started Sucessfully")
+    LOGGER("Fubuki").info("Assistant Started Successfully")
+
     try:
         await Ayush.stream_call(
-            "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
+            "https://telegra.ph/file/2e4d0e980f7690680a653.mp4"
         )
     except NoActiveGroupCall:
         LOGGER("Fubuki").error(
             "Please ensure the voice call in your log group is active."
         )
         exit()
+    except Exception:
+        pass
 
     LOGGER("Fubuki").info("Fubuki Started Successfully")
     await idle()
