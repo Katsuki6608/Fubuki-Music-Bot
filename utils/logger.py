@@ -1,3 +1,4 @@
+# All rights reserved.
 from config import LOG, LOGGER_ID
 from Fubuki import app
 from Fubuki.utils.database import is_on_off
@@ -44,7 +45,7 @@ async def play_logs(message, streamtype, thumbnail=None):
 ├ 🔎 **Query:** `{query}`
 └ 📡 **Stream:** `{streamtype}`
 
-⚡ **Mode:** Direct Stream · Fubuki UI
+⚡ **Mode:** Direct Stream · Premium UI
 """
         if message.chat.id != LOGGER_ID:
             try:
@@ -71,4 +72,3 @@ async def play_logs(message, streamtype, thumbnail=None):
                 except Exception:
                     pass
         return
-      
