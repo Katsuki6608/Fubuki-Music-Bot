@@ -3,78 +3,82 @@
 # Commands in English Language
 
 # Bot Commands
-PING_COMMAND : ["ping", "alive"]
-PRIVACY_COMMAND: ["privacy"]
-START_COMMAND : ["start", "music"]
+PING_COMMAND : ["ping", "alive", "aalive"]
+PRIVACY_COMMAND : ["privacy"]
+START_COMMAND : ["start"]
 HELP_COMMAND : ["help"]
 SETTINGS_COMMAND : ["settings", "setting"]
-RELOAD_COMMAND : ["reload", "admincache"]
+RELOAD_COMMAND : ["admincache", "reload"]
 GSTATS_COMMAND : ["gstats"]
-STATS_COMMAND: ["stats"]
-LANGUAGE_COMMAND : ["lang", "language"]
+STATS_COMMAND : ["stats"]
+LANGUAGE_COMMAND : ["lang", "language", "langs"]
 
 # Play Commands
-PLAY_COMMAND : ["play", "p"]
+PLAY_COMMAND : ["play", "vplay", "playforce", "vplayforce"]
 PLAYMODE_COMMAND : ["playmode"]
-CHANNELPLAY_COMMAND : ["channelplay", "cplay"]
-STREAM_COMMAND : ["stream", "cstream"]
+CHANNELPLAY_COMMAND : ["channelplay", "cplay", "cvplay", "cplayforce", "cvplayforce"]
+STREAM_COMMAND : ["stream", "cstream", "streamforce", "cstreamforce"]
 
 # Playlists Command
 PLAYLIST_COMMAND : ["playlist"]
-PLAY_PLAYLIST_COMMAND : ["playplaylist", "myplaylist"]
-DELETE_PLAYLIST_COMMAND : ["delplaylist", "deleteplaylist"]
+PLAY_PLAYLIST_COMMAND : ["playplaylist", "vplayplaylist"]
+DELETE_PLAYLIST_COMMAND : ["deleteplaylist", "delplaylist"]
 ADD_PLAYLIST_COMMAND : ["addplaylist"]
 
 # Tools
-QUEUE_COMMAND: ["queue", "q", "cqueue"]
-SONG_COMMAND : ["song", "musicdownload", "download"]
-LYRICS_COMMAND : ["lyrics", "lyric"]
+QUEUE_COMMAND : ["queue","cqueue","cplayer", "playing", "cplaying", "player"]
+SONG_COMMAND : ["song", "video"]
+LYRICS_COMMAND : ["lyrics"]
 
 # Admin Commands
 AUTH_COMMAND : ["auth"]
 UNAUTH_COMMAND : ["unauth"]
 AUTHUSERS_COMMAND : ["authusers"]
-PAUSE_COMMAND : ["pause"]
-RESUME_COMMAND : ["resume"]
-MUTE_COMMAND : ["mute"]
-UNMUTE_COMMAND : ["unmute"]
-STOP_COMMAND : ["stop", "end"]
-SKIP_COMMAND : ["skip", "next"]
-SHUFFLE_COMMAND : ["shuffle"]
-LOOP_COMMAND : ["loop"]
-SEEK_COMMAND : ["seek"]
-SEEK_BACK_COMMAND : ["seekback"]
+PAUSE_COMMAND : ["pause", "cpause"]
+RESUME_COMMAND : ["resume", "cresume"]
+MUTE_COMMAND : ["cmute", "mute"]
+UNMUTE_COMMAND : ["unmute", "cunmute"]
+STOP_COMMAND : ["stop", "end", "cstop", "cend"]
+SKIP_COMMAND : ["skip", "cskip"]
+SHUFFLE_COMMAND : ["shuffle", "cshuffle"]
+LOOP_COMMAND : ["loop", "cloop"]
+SEEK_COMMAND : ["seek", "cseek"]
+SEEK_BACK_COMMAND : ["seekback", "cseekback"]
 REBOOT_COMMAND : ["reboot"]
 INSTANT_PLAY_COMMAND : ["instantplay", "streammode"]
 
 # Sudo Users Commands
 ADDSUDO_COMMAND : ["addsudo"]
 DELSUDO_COMMAND : ["delsudo"]
-SUDOUSERS_COMMAND : ["sudousers"]
+SUDOUSERS_COMMAND : ["sudolist"]
 
-# Broadcast
+# Broadcast 
 BROADCAST_COMMAND : ["broadcast", "gcast"]
 
 # Blacklist chat
 BLACKLISTCHAT_COMMAND : ["blacklistchat"]
 WHITELISTCHAT_COMMAND : ["whitelistchat"]
-BLACKLISTEDCHAT_COMMAND : ["blacklistedchats"]
+BLACKLISTEDCHAT_COMMAND : ["blacklistedchat"]
+
+# Video Calls Command
+VIDEOLIMIT_COMMAND : ["set_video_limit"]
+VIDEOMODE_COMMAND : ["videomode"]
 
 # Maintenance
 MAINTENANCE_COMMAND : ["maintenance"]
 LOGGER_COMMAND : ["logger"]
 
 # Server / Logs Commands
-GETLOG_COMMAND : ["getlog", "logs"]
-GETVAR_COMMAND : ["getvar"]
-DELVAR_COMMAND : ["delvar"]
-SETVAR_COMMAND : ["setvar"]
+GETLOG_COMMAND : ["log", "logs", "get_log", "getlog", "get_logs", "getlogs"]
+GETVAR_COMMAND : ["get_var", "getvar"]
+DELVAR_COMMAND : ["del_var", "delvar"]
+SETVAR_COMMAND : ["set_var", "setvar"]
 USAGE_COMMAND : ["usage"]
 
 # Basic Bot Commands
-UPDATE_COMMAND : ["update"]
+UPDATE_COMMAND : ["update", "gitpull", "up"]
 RESTART_COMMAND : ["restart"]
-AUTOEND_COMMAND: ["autoend"]
+AUTOEND_COMMAND : ["autoend"]
 
 # Private Bot Mode
 AUTHORIZE_COMMAND : ["authorize"]
@@ -87,18 +91,14 @@ UNBLOCK_COMMAND : ["unblock"]
 BLOCKED_COMMAND : ["blockedusers"]
 
 # Speed Test
-SPEEDTEST_COMMAND : ["speedtest"]
+SPEEDTEST_COMMAND : ["speedtest", "spt"]
 
-# Video Calls Command
-VIDEOLIMIT_COMMAND: ["setvideolimit"]
-VIDEOMODE_COMMAND: ["videomode"]
-
-# Voice Chat Commands
-ACTIVEVC_COMMAND : ["activevc"]
-ACTIVEVIDEO_COMMAND : ["activevideo"]
+# Voice chat commands
+ACTIVEVC_COMMAND : ["activevoice","activevc"]
+ACTIVEVIDEO_COMMAND : ["activevideo","activevd"]
 AC_COMMAND: ["ac"]
 
 # Gban Commands
 GBAN_COMMAND : ["gban"]
 UNGBAN_COMMAND : ["ungban"]
-GBANNED_COMMAND : ["gbanned"]
+GBANNED_COMMAND : ["gbannedusers"]
