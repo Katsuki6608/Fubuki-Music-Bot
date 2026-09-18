@@ -1,0 +1,104 @@
+# All rights reserved.
+
+# Commands in Tamil Language
+
+# Bot Commands
+PING_COMMAND : ["பிங்", "ping", "alive"]
+PRIVACY_COMMAND : ["தனியுரிமை", "privacy"]
+START_COMMAND : ["தொடங்கு", "start"]
+HELP_COMMAND : ["உதவி", "help"]
+SETTINGS_COMMAND : ["அமைப்புகள்", "settings", "setting"]
+RELOAD_COMMAND : ["புதுப்பி", "reload", "admincache"]
+GSTATS_COMMAND : ["பொதுபுள்ளிவிவரம்", "gstats"]
+STATS_COMMAND : ["புள்ளிவிவரம்", "stats"]
+LANGUAGE_COMMAND : ["மொழி", "lang", "language"]
+
+# Play Commands
+PLAY_COMMAND : ["பாடு", "இசை", "play", "vplay"]
+PLAYMODE_COMMAND : ["இயக்கும்முறை", "playmode"]
+CHANNELPLAY_COMMAND : ["சேனல்இசை", "channelplay", "cplay"]
+STREAM_COMMAND : ["நேரலை", "stream", "cstream"]
+
+# Playlists Command
+PLAYLIST_COMMAND : ["பாடல்வரிசை", "playlist"]
+PLAY_PLAYLIST_COMMAND : ["வரிசையைபாடு", "playplaylist", "myplaylist"]
+DELETE_PLAYLIST_COMMAND : ["வரிசையைநீக்கு", "delplaylist", "deleteplaylist"]
+ADD_PLAYLIST_COMMAND : ["வரிசையில்சேர்", "addplaylist"]
+
+# Tools
+QUEUE_COMMAND : ["வரிசை", "queue", "q", "cqueue"]
+SONG_COMMAND : ["பாடல்", "song", "download"]
+LYRICS_COMMAND : ["வரிகள்", "lyrics"]
+
+# Admin Commands
+AUTH_COMMAND : ["அங்கீகரி", "auth"]
+UNAUTH_COMMAND : ["அங்கீகாரநீக்கு", "unauth"]
+AUTHUSERS_COMMAND : ["நிர்வாகிகள்", "authusers"]
+PAUSE_COMMAND : ["இடைநிறுத்து", "pause"]
+RESUME_COMMAND : ["தொடரவும்", "resume"]
+MUTE_COMMAND : ["ஒலியடக்கு", "mute"]
+UNMUTE_COMMAND : ["ஒலிஇயக்கு", "unmute"]
+STOP_COMMAND : ["நிறுத்து", "stop", "end"]
+SKIP_COMMAND : ["தாண்டு", "skip", "next"]
+SHUFFLE_COMMAND : ["கலக்கு", "shuffle"]
+LOOP_COMMAND : ["மீண்டும்பாடு", "loop"]
+SEEK_COMMAND : ["முன்னோக்கு", "seek"]
+SEEK_BACK_COMMAND : ["பின்னோக்கு", "seekback"]
+REBOOT_COMMAND : ["மறுதொடக்க", "reboot"]
+INSTANT_PLAY_COMMAND : ["உடனடிஇயக்கு", "instantplay", "streammode"]
+
+# Sudo Users Commands
+ADDSUDO_COMMAND : ["சுடோசேர்", "addsudo"]
+DELSUDO_COMMAND : ["சுடோநீக்கு", "delsudo"]
+SUDOUSERS_COMMAND : ["சுடோபட்டியல்", "sudolist", "sudousers"]
+
+# Broadcast 
+BROADCAST_COMMAND : ["ஒளிபரப்பு", "broadcast", "gcast"]
+
+# Blacklist chat
+BLACKLISTCHAT_COMMAND : ["தடைசெய்தகுழு", "blacklistchat"]
+WHITELISTCHAT_COMMAND : ["அனுமதித்தகுழு", "whitelistchat"]
+BLACKLISTEDCHAT_COMMAND : ["தடைப்பட்டியல்குழு", "blacklistedchats"]
+
+# Video Calls Command
+VIDEOLIMIT_COMMAND : ["வீடியோவரம்பு", "setvideolimit"]
+VIDEOMODE_COMMAND : ["வீடியோமுறை", "videomode"]
+
+# Maintenance
+MAINTENANCE_COMMAND : ["பராமரிப்பு", "maintenance"]
+LOGGER_COMMAND : ["பதிவேடு", "logger"]
+
+# Server / Logs Commands
+GETLOG_COMMAND : ["பதிவுகள்", "logs", "getlog"]
+GETVAR_COMMAND : ["மாறிபெறு", "getvar"]
+DELVAR_COMMAND : ["மாறிநீக்கு", "delvar"]
+SETVAR_COMMAND : ["மாறிஅமை", "setvar"]
+USAGE_COMMAND : ["பயன்பாடு", "usage"]
+
+# Basic Bot Commands
+UPDATE_COMMAND : ["புதுப்பித்தல்", "update"]
+RESTART_COMMAND : ["மறுதொடக்கம்", "restart"]
+AUTOEND_COMMAND : ["தானியங்கிநிறுத்தம்", "autoend"]
+
+# Private Bot Mode
+AUTHORIZE_COMMAND : ["அனுமதி", "authorize"]
+UNAUTHORIZE_COMMAND : ["அனுமதிநீக்கு", "unauthorize"]
+AUTHORIZED_COMMAND : ["அனுமதிக்கப்பட்டவை", "authorized"]
+
+# Block Users Command
+BLOCK_COMMAND : ["முடக்கு", "block"]
+UNBLOCK_COMMAND : ["மீட்டெடு", "unblock"]
+BLOCKED_COMMAND : ["முடக்கப்பட்டவர்கள்", "blockedusers"]
+
+# Speed Test
+SPEEDTEST_COMMAND : ["வேகசோதனை", "speedtest"]
+
+# Voice chat commands
+ACTIVEVC_COMMAND : ["இயங்கும்அழைப்புகள்", "activevc"]
+ACTIVEVIDEO_COMMAND : ["இயங்கும்வீடியோக்கள்", "activevideo"]
+AC_COMMAND : ["அழைப்புகள்", "ac"]
+
+# Gban Commands
+GBAN_COMMAND : ["உலகளாவியதடை", "gban"]
+UNGBAN_COMMAND : ["உலகளாவியதடைநீக்கு", "ungban"]
+GBANNED_COMMAND : ["தடைசெய்யப்பட்டவர்கள்", "gbanned"]
